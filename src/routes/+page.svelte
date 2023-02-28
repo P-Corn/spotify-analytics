@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import "../app.css";
   import axios from "axios";
+  import { goto } from "$app/navigation";
 
   const baseUrl = "https://accounts.spotify.com/";
   const client_id = "4ad9ba662edb47edafe174ac302e81b6";
@@ -45,16 +46,22 @@
 
     if (code) {
       axios
-        .post(`${baseUrl}api/token`, new URLSearchParams(data).toString())
+        .post(`${baseUrl}api/token`, new URLSearchParams(data).toString(), {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Basic " + btoa(client_id + ":" + client_secret),
+        })
         .then((res) => {
-          console.log(res);
+          const { access_token, refresh_token } = res.data;
+          localStorage.setItem("access_token", access_token);
+          localStorage.setItem("refresh_token", refresh_token);
+          console.log("1 --> " + access_token);
+          goto("/dashboard");
         })
         .catch((err) => console.log(err));
     }
 
     if (error) {
       console.log(error);
-      alert("There was an error during the authentication, please try again.");
     }
   });
 
