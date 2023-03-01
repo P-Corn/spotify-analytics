@@ -5,6 +5,7 @@
   import ItemCards from "./ItemCards.svelte";
   import { goto } from "$app/navigation";
 
+  export let drawer = null;
   let token;
   let topArtists = [];
   let topTracks = [];
@@ -48,7 +49,12 @@
 </script>
 
 <div class="drawer">
-  <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+  <input
+    bind:this={drawer}
+    id="my-drawer-3"
+    type="checkbox"
+    class="drawer-toggle"
+  />
   <div class="drawer-content flex flex-col">
     <!-- Navbar -->
     <div class="w-full navbar bg-base-300">
@@ -101,15 +107,27 @@
     <label for="my-drawer-3" class="drawer-overlay" />
     <ul class="menu p-4 w-80 bg-base-100">
       <li
-        on:click={() => (currentTab = "artists")}
-        on:keydown={() => (currentTab = "artists")}
-        class="cursor-pointer btn mb-3"
+        on:click={() => {
+          currentTab = "artists";
+          drawer.checked = false;
+        }}
+        on:keydown={() => {
+          currentTab = "artists";
+          drawer.checked = false;
+        }}
+        class="cursor-pointer btn mb-3 drawer-button"
       >
         Top Artists
       </li>
       <li
-        on:click={() => (currentTab = "tracks")}
-        on:keydown={() => (currentTab = "tracks")}
+        on:click={() => {
+          currentTab = "tracks";
+          drawer.checked = false;
+        }}
+        on:keydown={() => {
+          currentTab = "tracks";
+          drawer.checked = false;
+        }}
         class="cursor-pointer btn"
       >
         Top Tracks

@@ -23,7 +23,6 @@
     });
 
   onMount(() => {
-    console.log(PUBLIC_CLIENT_SECRET);
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
     const error = urlParams.get("error");
