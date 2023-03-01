@@ -6,7 +6,6 @@
 
   const baseUrl = "https://accounts.spotify.com/";
   const client_id = "4ad9ba662edb47edafe174ac302e81b6";
-  const client_secret = "97a4ef41a9334308a6f746ff7ca1fdec";
   const redirect_uri = "http://localhost:5173/";
   const state = "Test";
   const scopes = [
