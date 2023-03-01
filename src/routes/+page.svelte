@@ -8,7 +8,7 @@
   const baseUrl = "https://accounts.spotify.com/";
   const client_id = PUBLIC_CLIENT_ID;
   const client_secret = PUBLIC_CLIENT_SECRET;
-  const redirect_uri = "https://www.hthunderous-pithivier-141fb5.netlify.app/";
+  const redirect_uri = "https://thunderous-pithivier-141fb5.netlify.app/";
   const state = "Testing";
   const scopes = ["user-top-read"];
 
