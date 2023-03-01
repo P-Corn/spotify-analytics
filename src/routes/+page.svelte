@@ -3,21 +3,14 @@
   import "../app.css";
   import axios from "axios";
   import { goto } from "$app/navigation";
+  import { PUBLIC_CLIENT_SECRET, PUBLIC_CLIENT_ID } from "$env/static/public";
 
   const baseUrl = "https://accounts.spotify.com/";
-  const client_id = "4ad9ba662edb47edafe174ac302e81b6";
+  const client_id = PUBLIC_CLIENT_ID;
+  const client_secret = PUBLIC_CLIENT_SECRET;
   const redirect_uri = "http://localhost:5173/";
-  const state = "Test";
-  const scopes = [
-    "streaming",
-    "user-read-private",
-    "user-modify-playback-state",
-    "user-read-email",
-    "user-top-read",
-    "playlist-modify-public",
-    "playlist-modify-private",
-    "playlist-read-private",
-  ];
+  const state = "Testing";
+  const scopes = ["user-top-read"];
 
   const url =
     `${baseUrl}authorize?` +
@@ -30,6 +23,7 @@
     });
 
   onMount(() => {
+    console.log(PUBLIC_CLIENT_SECRET);
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
     const error = urlParams.get("error");
@@ -53,7 +47,6 @@
           const { access_token, refresh_token } = res.data;
           localStorage.setItem("access_token", access_token);
           localStorage.setItem("refresh_token", refresh_token);
-          console.log("1 --> " + access_token);
           goto("/dashboard");
         })
         .catch((err) => console.log(err));
@@ -69,9 +62,12 @@
   }
 </script>
 
-<div>
-  <h1>View your Spotify Analytics</h1>
-  <p>First, log in to Spotify. Then, you can view your Spotify Analytics.</p>
+<div class="text-center login-container m-auto">
+  <h1>Your Spotify Analytics</h1>
+  <p class="mb-5 mt-2">
+    Hi! This is a simple app that lets you view your top artists and tracks on
+    Spotify. The app is still a work in progress, more features will be added.
+  </p>
   <button class="btn" on:click={logIn}>Log in</button>
 </div>
 
@@ -79,5 +75,16 @@
   h1 {
     font-size: 2rem;
     font-weight: 600;
+  }
+  p {
+    max-width: 600px;
+  }
+  .login-container {
+    height: 100vh;
+    display: flex;
+    padding: 0 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 </style>
