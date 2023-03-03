@@ -7,7 +7,7 @@
   }
 </script>
 
-<div class="flex items-stretch flex-wrap">
+<div class="flex items-stretch flex-wrap container">
   {#each data as item, i (item.href)}
     <div class="basis-1/1 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
       <div class="card card-compact bg-gray-800 shadow-xl m-5">

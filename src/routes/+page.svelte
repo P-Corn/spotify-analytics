@@ -27,20 +27,21 @@
     const code = urlParams.get("code");
     const error = urlParams.get("error");
 
-    const data = {
-      grant_type: "authorization_code",
-      code,
-      redirect_uri,
-      client_id,
-      client_secret,
-      code_verifier: state,
-    };
-
     if (code) {
+      const data = {
+        grant_type: "authorization_code",
+        code,
+        redirect_uri,
+        client_id,
+        client_secret,
+        code_verifier: state,
+      };
+
       axios
         .post(`${baseUrl}api/token`, new URLSearchParams(data).toString(), {
           "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: "Basic " + btoa(client_id + ":" + client_secret),
+          Authorization:
+            "Basic " + window.btoa(client_id + ":" + client_secret),
         })
         .then((res) => {
           const { access_token, refresh_token } = res.data;
